@@ -11,7 +11,7 @@ The current build meets the basic specifications I have added some additional fe
 -The ability to choose fonts and templates.
 
 # Features to be added in future builds
--A preview screen which allows the user to edit the postion, RGB, size of the text of the JPEG
+-A preview screen which allows the user to edit the postion, RGB, size of the text of the JPEG\n
 -Allow users to upload their own fonts and templates
 -Implement Open Authentication
 
