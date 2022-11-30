@@ -12,7 +12,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.animation import Animation
 from datetime import datetime,date
-
+#I DONT WANT TO COMMIT TO THIS RELATIONSHIP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 from kivy.uix.screenmanager import ScreenManager, Screen
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
@@ -339,7 +339,7 @@ def customBirthdayCard(root_manager):
     global customText
     ToEmail = root_manager.get_screen('DIS').ids.ToEmail.text
     Appendage += 1
-    if os.path.isfile(f'/home/xen/Desktop/BirthDayBOT-main/ClientBDBot/HappyBirthdayto{Appendage-1}{ToEmail}.jpg'):
+    if os.path.isfile(f'/home/xen/BDayCardManager/BirthDayBOT/Bday Card Manager(V2)/Client/HappyBirthdayto{Appendage-1}{ToEmail}.jpg'):
         os.remove(f'HappyBirthdayto{Appendage-1}{ToEmail}.jpg') #To remove previous iteration to save space
 
     Font = root_manager.get_screen('previewscreen').ids.FontList.text
