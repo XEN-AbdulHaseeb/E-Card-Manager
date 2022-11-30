@@ -1,0 +1,461 @@
+#:import Factory kivy.factory.Factory
+WindowManager:
+    DetailInputScreen:
+    #DetailInputScreen2:
+    PreviewScreen:
+    #CustomText:
+    Advanced:
+        id:prev
+
+<Background@BoxLayout>:
+    orientation:'vertical'
+
+    canvas.before:
+        Color:
+            rgba:(1,1,1,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+            source: 'Blackbg.jpg'
+#PreviewScreen:
+<CustomText@Popup>:
+    name:'custumutextudesu'
+    title:'Enter Custom Text'
+    size_hint:.5,.8
+    BoxLayout:
+        orientation:'vertical'
+        AnchorLayout:
+            size_hint_y:.2
+            anchor_x:'left'
+            #anchor_y:'bottom'
+            Button:
+                text:'Close'
+                size_hint:.15,.1
+                on_press:
+                    root.updateText(custom.text)
+                    root.dismiss()
+        TextInput:
+            id:custom
+
+
+<Advanced>:
+    name:'AdvancedUwU'
+    Background:
+        BoxLayout:
+            orientation:'vertical'
+            id:box
+            ScrollView:
+                do_scroll_x:False
+                GridLayout:
+                    cols:3
+                    spacing:10
+                    size_hint_y:None
+                    row_default_height:250
+                    row_force_default:True
+                    col_default_width:200
+                    #col_force_default:True
+                    height:230
+                    id:grid
+
+            Label:
+                size_hint_y:.1
+
+            Button:
+                id:back
+                text:'Back'
+                size_hint:.4,.2
+                on_press:
+                    root.togglecheck(root.manager)
+                    app.root.current = 'previewscreen'
+
+<PreviewScreen>:
+    name:'previewscreen'
+    Background:
+        BoxLayout:
+            orientation:'horizontal'
+            BoxLayout:
+                orientation:'vertical'
+                size_hint_x:.5 #Tinker with this for mobile port
+                Image:
+                    id:preview
+                    source: root.img_src
+                    #nocache:True
+                GridLayout:
+                    size_hint:.9,.6
+                    pos_hint:{'x':.05}
+                    rows:7
+                    cols:2
+                    Label:
+                        text:'Font'
+                    Label:
+                        text:'Font Size'
+                    #Label:
+                    #   text:'PlaceHolder'
+                    Spinner:
+                        id:FontList
+                        pos_hint:{"x":.25}
+                        #size_hint:.5,.1
+                        text:'JandaCelebrationScript'
+                        values:[]
+                        on_text:root.invokeBDayGen(root.manager)
+                    TextInput:
+                        id:FontSize
+                        input_filter:'int'
+                        #size_hint:.5,.1
+                        multiline: False
+                        on_text_validate:
+                            root.notNull(FontSize)
+                            root.invokeBDayGen(root.manager)
+                        text:'80'
+
+                    Label:
+                        text:'x_Offset'
+                    Label:
+                        text:'y_Offset'
+                    TextInput:
+                        id:xoffset
+                        input_filter:'int'
+                        text:'300'
+                        multiline:False
+                        on_text_validate:
+                            root.notNull(xoffset)
+                            root.invokeBDayGen(root.manager)
+                    TextInput:
+                        id:yoffset
+                        input_filter:'int'
+                        text:'200'
+                        multiline:False
+                        on_text_validate:
+                            root.notNull(yoffset)
+                            root.invokeBDayGen(root.manager)
+                    Button:
+                        text:'Default'
+                        on_press:root.defaults(root.manager)
+                    Button:
+                        text:'Custom Text'
+                        on_press:Factory.CustomText().open()
+                    Button:
+                        text:'Custom Background'
+                        on_release:
+                            root.scanimg(root.manager)
+                            app.root.current = 'AdvancedUwU'
+                    Button:
+                        text: 'Schedule Email'
+                        pos_hint:{"x":.25}
+                        on_press: root.enterData(app.Year,app.Month,app.Day,app.ToEmail)
+                    Button:
+                        text:'Back'
+                        on_release:app.root.current = 'DIS'
+                    Label:
+                        text:'Press enter to validate details --->'
+
+            BoxLayout:
+                size_hint_x:.2
+                orientation:'vertical'
+                Label:
+                    size_hint_y:.1
+                    text:'Font Color'
+                GridLayout:
+                    rows:1
+                    cols:3
+                    size_hint_y:.1
+                    Label:
+                        text:f'R'
+                    Label:
+                        text:f'G'
+                    Label:
+                        text:f'B'
+                GridLayout:
+                    rows:1
+                    cols:4
+                    size_hint_y:.7
+                    Slider:
+                        orientation:'vertical'
+                        id:R
+                        min:0
+                        max:255
+                        step:1
+                        value:0
+                        sensitivity:'handle'
+                        on_touch_up:
+                            root.invokeBDayGen(root.manager)
+                            root.R = int(R.value)
+                            Rtext.text = str(int(R.value))
+
+                    Slider:
+                        orientation:'vertical'
+                        sensitivity:'handle'
+                        id:G
+                        min:0
+                        max:255
+                        value:71
+                        on_touch_up:
+                            root.G = int(G.value)
+                            root.invokeBDayGen(root.manager)
+                            Gtext.text = str(int(G.value))
+                        step:1
+                    Slider:
+                        orientation:'vertical'
+                        sensitivity:'handle'
+                        id:B
+                        min:0
+                        max:255
+                        value:171
+                        on_touch_up:
+                            root.B = int(B.value)
+                            root.invokeBDayGen(root.manager)
+                            Btext.text = str(int(B.value))
+                        step:1
+                GridLayout:
+                    size_hint_y:.1
+                    rows:3
+                    cols:3
+
+
+                    Label:
+                        text:f'{int(R.value)}'
+                    Label:
+                        text:f'{int(G.value)}'
+                    Label:
+                        text:f'{int(B.value)}'
+
+
+                    TextInput:
+                        text:'0'
+                        input_filter:'int'
+                        id:Rtext
+                        multiline:False
+                        on_text_validate:
+                            root.valueLimiter(Rtext) #Before I passed Rtext.text, was only passing a string, hence couldnt make any changed
+                            R.value = int(Rtext.text)
+                            root.R = int(R.value)
+                            root.invokeBDayGen(root.manager)
+                    TextInput:
+                        text:'71'
+                        input_filter:'int'
+                        multiline:False
+                        id:Gtext
+                        on_text_validate:
+                            root.valueLimiter(Gtext)
+                            G.value = int(Gtext.text)
+                            root.G = int(G.value)
+                            root.invokeBDayGen(root.manager)
+                    TextInput:
+                        text:'172'
+                        input_filter:'int'
+                        multiline:False
+                        id:Btext
+                        on_text_validate:
+                            root.valueLimiter(Btext)
+                            B.value = int(Btext.text)
+                            root.B = int(B.value)
+                            root.invokeBDayGen(root.manager)
+
+
+
+<DetailInputScreen>:
+    name:'DIS'
+    id:Detail
+    Background:
+        BoxLayout:
+            orientation:"vertical"
+            Label:
+                text:'Enter date:'
+                id:dateLabel
+                pos_hint:{"x":.25}
+                size_hint:.5,.1
+            #BoxLayout:
+            #   size_hint:.25,.25
+            #  pos_hint:{'x':.38}
+            GridLayout:
+                cols:3
+                pos_hint:{"x":.4}
+                size_hint:.2,.05
+                TextInput:
+                    input_filter:'int'
+                    hint_text:'YYYY'
+                    multiline:False
+                    id:Year
+                    size_hint:.8,.6
+                    font_size:12
+                    text:'2022'
+                    on_focus:
+                        root.dateValidate(Day.text,Month.text,Year.text,Next,dateLabel)
+                        root.InputCheck(Next)
+                TextInput:
+                    id:Month
+                    input_filter:'int'
+                    hint_text:'MM'
+                    multiline:False
+                    size_hint:.8,.6
+                    font_size:12
+                    text:'12'
+                    on_focus:
+                        root.dateValidate(Day.text,Month.text,Year.text,Next,dateLabel)
+                        root.InputCheck(Next)
+                TextInput:
+                    id:Day
+                    input_filter:'int'
+                    hint_text:'DD'
+                    multiline:False
+                    size_hint:.8,.6
+                    font_size:12
+                    text:'1'
+                    on_focus:
+                        root.dateValidate(Day.text,Month.text,Year.text,Next,dateLabel)
+                        root.InputCheck(Next)
+
+            Label:
+                text:'From?'
+                pos_hint:{"x":.25}
+                size_hint:.5,.1
+            TextInput:
+                id:From
+                multiline:False
+                pos_hint:{"x":.25}
+                size_hint:.5,.1
+                text:'Abdul Haseeb'
+            Label:
+                text:'To?'
+                pos_hint:{"x":.25}
+                size_hint:.5,.1
+            TextInput:
+                id:To
+                multiline:False
+                pos_hint:{"x":.25}
+                size_hint:.5,.1
+                text:'No One'
+            Label:
+                text:"Enter your friend's Email"
+                id:emailLabel
+                pos_hint:{"x":.25}
+                size_hint:.5,.1
+            TextInput:
+                id:ToEmail
+                hint_text:'someone@example.com'
+                multiline:False
+                pos_hint:{"x":.25}
+                size_hint:.5,.1
+                text:'a.hmohdlords@gmail.com'
+                on_focus:
+                    root.emailValidate(ToEmail.text,emailLabel,Next)
+                    root.InputCheck(Next)
+            Label:
+                size_hint:.5,.1
+            Button:
+                id:Next
+                disabled:True
+                pos_hint:{"x":.25}
+                text:'Next'
+                size_hint:.5,.1
+                on_press:
+                    root.load_font(root.manager)
+                    root.on_next(Year.text,Month.text,Day.text,From.text,To.text,ToEmail.text)
+                on_release:root.nextscreen(root.manager)
+
+<DetailInputScreen2>:
+    name:'detailinput2'
+    BoxLayout:
+        orientation:'vertical'
+        Label:
+            text:'Font'
+            pos_hint:{"x":.25}
+            size_hint:.5,.1
+        Spinner:
+            id:FontList
+            pos_hint:{"x":.25}
+            size_hint:.5,.1
+            text:'JandaCelebrationScript'
+            values:['JandaCelebrationScript','Amsterdam','BeautifulPeople','Countryside','LovelyMelody']
+            on_text:root.onFontSelect(FontList.text)
+        Label:
+            text:'Templates'
+            pos_hint:{"x":.25}
+            size_hint:.5,.1
+        GridLayout:
+            rows:2
+            cols:3
+            pos_hint:{"x":.10}
+            size_hint:.8,1
+            Image:
+                source:'Template_1.jpg'
+            Image:
+                source:'Template_2.jpg'
+            Image:
+                source:'Template_3.jpg'
+            CheckBox:
+                id:chk1
+                on_active:root.on_active_checkbox(self.active,'Template_1.jpg',chk2,chk3)
+            CheckBox:
+                id:chk2
+                on_active:root.on_active_checkbox(self.active,'Template_2.jpg',chk1,chk3)
+            CheckBox:
+                id:chk3
+                on_active:root.on_active_checkbox(self.active,'Template_3.jpg',chk1,chk2)
+        #TextInput:
+            #id:Template
+            #multiline:False
+            #pos_hint:{"x":.25}
+            #size_hint:.5,.1
+        Label:
+            size_hint:.5,.1
+        Button:
+            text: 'Schedule Email'
+            size_hint:.5,.1
+            pos_hint:{"x":.25}
+            on_press: root.passtext(app.Year,app.Month,app.Day,app.From,app.To,app.ToEmail,root.Template,root.Font)
+            #on_press:root.test()
+            #on_release:app.root.current = 'previewscreen'
+        Label:
+            size_hint:.5,.1
+        GridLayout:
+            rows:1
+            cols:2
+            pos_hint:{'x':.10}
+            size_hint:.8,.1
+            spacing:100
+
+            Button:
+                text:'Previous'
+                size_hint:.5,.1
+                on_release:app.root.current = 'DIS'
+            Button:
+                text:'Next'
+                size_hint:.5,.1
+                on_press:
+                    root.passtext(root.manager)
+                on_release:app.root.current = 'previewscreen'
+
+
+<TextReader>:
+    BoxLayout:
+        size_hint:.5,.1
+<TheAppenderLmao>:
+    cols: 3
+    Button:
+        text:"Append"
+        on_press: root.appender()
+
+<BoxLayoutExample>:
+    orientation:"vertical"
+    Button:
+        text:"Enter your friend's details"
+        color: .1,.1,.3,1
+    Button:
+        text:"Don't have a friend? Too bad delete this app"
+
+<FontList>:
+    Button:
+        text: 'My first Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item1')
+    Label:
+        text: 'Unselectable item'
+        size_hint_y: None
+        height: 44
+    Button:
+        text: 'My second Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item2')

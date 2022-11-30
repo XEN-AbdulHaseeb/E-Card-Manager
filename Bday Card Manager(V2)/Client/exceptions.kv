@@ -1,0 +1,18 @@
+NetworkIssue:
+    BoxLayout:
+        size_hint:.3,.6
+        padding:[100,100,100,100]
+        orientation:'vertical'
+
+        Label:
+            size_hint:.3,.35
+            pos_hint:{"x":.35,'y':.6}
+            text:'Network Issue'
+        Label:
+            #size_hint:.2,.2
+        Button:
+            size_hint:.3,.35
+            text:'Close Application'
+            pos_hint:{"x":.35}
+            on_release:app.stop()
+
