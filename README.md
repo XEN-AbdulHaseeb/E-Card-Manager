@@ -20,5 +20,8 @@ The current build meets the basic specifications I have added additional feature
 
 -Full testing and deployment is pending.
 
+![Screenshot (6)](https://user-images.githubusercontent.com/102440117/235298572-624e25b2-a664-415a-a7c2-2ff6a12e3771.png)
+
+
 ![Alt text](https://github.com/XEN-AbdulHaseeb/E-Card-Manager/tree/main/Bday%20Card%20Manager(V2)/DemoScreenshots/Screenshot%20(6).png)
 
