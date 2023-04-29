@@ -8,9 +8,10 @@ The server will handle the complex operations of generation of the JPEG and sche
 # Current Build info
 
 The current build meets the basic specifications I have added additional features namely:
+
 -The ability to choose fonts and templates.
 
--A preview screen which allows the user to edit the postion, RGB, size of the text of the JPEG in real time.
+-A preview screen which allows the user to edit the contents of the JPEG in real time, which include text, text size, text color, background, alignment, etc.
 
 -Allow users to upload their own fonts and templates(Backgrounds).
 
