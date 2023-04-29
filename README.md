@@ -14,7 +14,7 @@ The current build meets the basic specifications I have added additional feature
 
 -Allow users to upload their own fonts and templates(Backgrounds).
 
-#Issues
+# Issues
 -Currently the server program needs to be run locally, running the server program on a global server would be expensive as this project is only a demonstration.
 
 -Full testing and deployment is pending.
