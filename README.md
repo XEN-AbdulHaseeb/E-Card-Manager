@@ -20,5 +20,5 @@ The current build meets the basic specifications I have added additional feature
 
 -Full testing and deployment is pending.
 
-![Alt text](/Bday Card Manager(V2)/DemoScreenshots/Screenshot (6)?raw=true "Optional Title")
+![Alt text](/Bday Card Manager(V2)/DemoScreenshots/Screenshot (6).png?raw=true "Optional Title")
 
