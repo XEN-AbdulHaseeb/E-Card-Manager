@@ -1,5 +1,5 @@
 # E-Card Manager
-E-Card Manager is an app that generates and sends a customized jpeg of an E-card to an email recipient, the user will use their own email via OAuth 2.0.
+E-Card Manager is an app that generates and sends a customized jpeg of an E-card to an email recipient, the user will use their own email via OAuth 2.0 protocol.
 
 The user will enter the required data into a client, the client will forward the data to a remote server using Socket Programming.
 
