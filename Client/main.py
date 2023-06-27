@@ -71,9 +71,6 @@ class PreviewScreen(BoxLayout, Screen):
             layout = GridLayout(cols=3)
             filelist = glob.glob(r'.\CustomImg\*.jpg')
             tmpfilelist = glob.glob(r'.\CustomImg\*.jpeg')
-
-            # for i in tmpfilelist:
-            #   filelist.append(i)
             for i in range(len(filelist)):
                 tmp = ToggleButton(background_color=[1, 1, 1, .5], background_normal=filelist[i],
                                    background_down=filelist[i], group='img')
@@ -94,10 +91,6 @@ class PreviewScreen(BoxLayout, Screen):
                 root_manager.get_screen('AdvancedUwU').ids.grid.height *= (rows + 1)
             print(root_manager.get_screen('AdvancedUwU').ids.grid.height)
 
-            # print(self.img_reference)
-            # print(filelist)
-
-            # root_manager.get_screen('AdvancedUwU').ImgFileList = filelist
 
     def enterData(self, Year, Month, Day, ToEmail):
         global Appendage
@@ -162,10 +155,7 @@ class CustomText(Popup):
 
 
 class Advanced(Screen):
-    # ImgFileList = ListProperty([])
     def togglecheck(self, root_manager):
-        # toggle_ref_list = root_manager.get_screen('previewscreen').img_reference
-
         for i in img_reference:
             if i.state == 'down':
                 root_manager.get_screen('previewscreen').img_src = i.background_normal
@@ -217,12 +207,10 @@ class DetailInputScreen(BoxLayout, Screen):
             emailLabel.text = 'Enter a valid email'
             emailLabel.color = 1, 0, 0, 1
             shake.start(emailLabel)
-            # Next.disabled = True
             self.EmailValid = False
         else:
             emailLabel.text = "Enter your friend's Email"
             emailLabel.color = 1, 1, 1, 1
-            # Next.disabled = False
             self.EmailValid = True
 
     def dateValidate(self, DD, MM, YYYY, Next, dateLabel, ):
