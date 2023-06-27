@@ -1,31 +1,23 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
-from kivy.properties import ObjectProperty
 from kivy.properties import NumericProperty
-from kivy.properties import ListProperty
 from kivy.properties import BooleanProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.popup import Popup
-from kivy.uix.label import Label
 from kivy.animation import Animation
-from datetime import datetime, date
-# I DONT WANT TO COMMIT TO THIS RELATIONSHIP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+from datetime import datetime
 from kivy.uix.screenmanager import ScreenManager, Screen
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google.auth.exceptions import TransportError
-import google
 from PIL import Image, ImageFont, ImageDraw
-# from googleapiclient.errors import HttpError
 from dotenv import load_dotenv
 import socket
 import os
-import json
-import time
 import glob  # Amazing library name
 import re
 
@@ -35,7 +27,8 @@ load_dotenv()
 hostname = socket.gethostname()
 IP = str(socket.gethostbyname(hostname))
 customText = ''
-img_reference = list()  # Cant use ids as they are parsed only in .kv file, so need to store references to dynamically added widgets in python.
+img_reference = list()  # Cant use ids as they are parsed only in .kv file, so need to store references to
+# dynamically added widgets in python.
 shake = Animation(x=198, duration=.05) + Animation(x=202, duration=.05) + Animation(x=198, duration=.05) + Animation(
     x=202, duration=.05) + Animation(x=200, duration=.05)
 emailRegEx = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'  # Proper email format
@@ -205,7 +198,7 @@ class DetailInputScreen(BoxLayout, Screen):
     To = StringProperty('You')
     ToEmail = StringProperty('a.hmohdlords@gmail.com')
     TextFieldAccessCount = NumericProperty(
-        0)  # Dont want to prompt user to enter a valid entry as soon as they try to enter data
+        0)  # Don't want to prompt user to enter a valid entry as soon as they try to enter data
     TextFieldAccessCount2 = NumericProperty(0)
     DateValid = BooleanProperty(False)
     EmailValid = BooleanProperty(False)
@@ -243,34 +236,29 @@ class DetailInputScreen(BoxLayout, Screen):
 
             except ValueError:
                 print('Invalid Date')
-                # Next.disabled = True
                 dateLabel.text = 'Enter a valid date:'
                 dateLabel.color = 1, 0, 0, 1
-                # moveleft.start(dateLabel)
-                # shake.repeat = True
                 shake.start(dateLabel)
                 self.DateValid = False
                 return
 
             CurrentDate = datetime.now()
             CurrentYear = CurrentDate.year  # Need to compare date only, now() method returns time as well
-            CurrentMonth = CurrentDate.month  # Yup, thats right, i couldn't find a better way to do this, another way would be converting them into strings.
+            CurrentMonth = CurrentDate.month  # Yup, that's right, I couldn't find a better way to do this, another
+            # way would be converting them into strings.
             CurrentDay = CurrentDate.day
             CurrentDate = datetime(CurrentYear, CurrentMonth, CurrentDay)
 
             if UserDate < CurrentDate:
                 print('Invalid Date')
-                # Next.disabled = True
                 dateLabel.text = 'Enter a valid date:'
                 dateLabel.color = 1, 0, 0, 1
                 shake.start(dateLabel)
                 self.DateValid = False
                 return
 
-            # self.TextFieldAccessCount = 0
             dateLabel.text = 'Enter date:'
             dateLabel.color = 1, 1, 1, 1
-            # Next.disabled = False
             self.DateValid = True
 
     def on_next(self, YYYY, MM, DD, From, To, ToEmail):
@@ -285,9 +273,8 @@ class DetailInputScreen(BoxLayout, Screen):
         customBirthdayCard(root_manager)
         fontlist = glob.glob('.\CustomFonts\*.ttf')
         for i in fontlist:
-            # root_manager.get_screen('previewscreen').ids.FontList.values.append(i)
             i = re.sub(r'.\\CustomFonts', '', i)
-            i = re.sub(r'\\','',i) # A slash was remaining, re.sub() is weird with backslashes
+            i = re.sub(r'\\', '', i)  # A slash was remaining, re.sub() is weird with backslashes
             i = re.sub('.ttf', '', i)
             root_manager.get_screen('previewscreen').ids.FontList.values.append(i)
             print(i)
@@ -301,8 +288,6 @@ class DetailInputScreen2(BoxLayout, Screen):
     Template = StringProperty('Template_1.jpg')
     Font = StringProperty('JandaCelebrationScript')
 
-    # def previewimagegen(self):
-    #   print('Meow!')
     def onFontSelect(self, font):
         self.Font = font
         print(self.Font)
@@ -314,16 +299,12 @@ class DetailInputScreen2(BoxLayout, Screen):
             self.Template = TemplateString
             print(self.Template)
 
-    def passtext(self, root_manager):  # def passtext(self, Year, Month, Day, From, To, ToEmail,Template,Font):
-        # enterData(Year, Month, Day, From, To, ToEmail, Template, Font)
+    def passtext(self, root_manager):
         customBirthdayCard(root_manager)
 
 
 def TokenGen():  # For Client
     global kv
-    """Shows basic usage of the Gmail API.
-    Lists the user's Gmail labels.
-    """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -344,12 +325,12 @@ def TokenGen():  # For Client
         else:
             flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
             creds = flow.run_local_server(port=1337)
-        # Save the credentials for the next run0
+        # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
 
-Appendage = 0  # Refer to attached document to understand why this exists
+Appendage = 0  # Refer to line 376 to understand why this exists
 
 
 def customBirthdayCard(root_manager):
@@ -394,7 +375,7 @@ def customBirthdayCard(root_manager):
     """ 
         For some reason kivy was loading the previous state of the image with the same name after user makes any changes 
         ,probably cuz it was using some cache that uses the file name to load the image in the app, so I changed the 
-        name each time the current rendition ss overwritten with a another one by appending it with an unrelated item 
+        name each time the current rendition is overwritten with a another one by appending it with an unrelated item 
         like an integer and to keep it unique for a user, I attached their email too, I called it an appendage here :P
     """
 
@@ -405,7 +386,6 @@ kv = Builder.load_file('birthday.kv')
 
 class bruhBirthdayApp(App):
     def build(self):
-        # App.get_running_app().img_src = 'Template_1.jpg'
         TokenGen()
         return kv
 

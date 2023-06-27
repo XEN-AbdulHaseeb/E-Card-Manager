@@ -2,38 +2,30 @@ from __future__ import print_function
 import socket
 from datetime import datetime
 import threading
-from PIL import Image, ImageFont, ImageDraw
 import time
 import os
-import smtplib
-from email.message import EmailMessage
+
 
 import os.path  # All these libraries to access Gmail API :(
 import base64
-import google.auth
 import requests
 import json
 
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-# from dotenv import load_dotenv
 
 # Temporary stuff
 # load_dotenv()
 hostname = socket.gethostname()
 IP = str(socket.gethostbyname(hostname))
-# ToEmail = 'abdulhaseebmohammed191'
 FromToken = 'token'
 TheCard = 'test'
 SetTime = '00:00:01'  # For scheduling
-# print(socket.gethostbyname('Alive'))
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.compose', 'https://www.googleapis.com/auth/gmail.send',
           'https://www.googleapis.com/auth/gmail.metadata']
@@ -91,12 +83,9 @@ def sendmail():
     for i in DetailsList:
 
         Date, ToEmail = i.split('$')
-        # print(f'Scanned item {count}:\nDate:{Date}\nFrom:{From}\nTo:{To}\nToEmail:{ToEmail}\nTemplate:{Template}\n\n')
-        # count+=1
         CurDT = datetime.now().strftime('%Y-%m-%d')
         if Date == CurDT:
             TheCard = f'HappyBirthdayto{ToEmail}.jpg'
-            # print('Card Created')
             gmail_send_message(ToEmail, TheCard)
             os.remove(TheCard)  # Deleteing the card once sent
         else:
@@ -114,10 +103,8 @@ def gmail_send_message(ToEmail, TheCard):
     f = open(f'{ToEmail}Token.json')  # Dont forget to close
     myjson = json.load(f)
     mytoken = myjson['token']
-    # print(mytoken)
     useremail = requests.get('https://gmail.googleapis.com/gmail/v1/users/me/profile',
                              headers={'Authorization': f'Bearer {mytoken}'})
-    # print(useremail.json())
     try:
         service = build('gmail', 'v1', credentials=creds)
         mime_message = MIMEMultipart()
@@ -171,7 +158,7 @@ while True:
     f = open('Details.txt', 'a')
     f.write(DetailsString + '\n')
     f.close()
-    time.sleep(1)  # To make sure token is recieved before renaming recievetoken.json
+    time.sleep(1)  # To make sure token is received before renaming recievetoken.json
     ToEmail = DetailsString.split('$')[1]
     if os.path.isfile(f'./{ToEmail}Token.json') or os.path.isfile(f'HappyBirthdayto{ToEmail}.jpg'):
         # Wasn't renaming received files when client files already existed
