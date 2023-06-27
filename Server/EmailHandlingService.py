@@ -50,7 +50,7 @@ def jsonlistner():
         while True:
             DataRecieved = clientsock.recv(8)
             f.write(DataRecieved)
-            print(f'{DataRecieved}\n')
+            #print(f'{DataRecieved}\n')
             if len(DataRecieved) <= 0:
                 break
         f.close()
@@ -68,7 +68,7 @@ def img_listner():
         while True:
             DataRecieved = clientsock.recv(100000)
             f.write(DataRecieved)
-            print(f'{DataRecieved}\n')
+            #print(f'{DataRecieved}\n')
             if len(DataRecieved) <= 0:
                 break
         f.close()
@@ -149,7 +149,7 @@ while True:
     time.sleep(1)
     while True:
         DataRecieved = clientsock.recv(8)
-        print(f'{DataRecieved}\n')
+        #print(f'{DataRecieved}\n')
         if len(DataRecieved) <= 0:
             break
         DetailsString += DataRecieved.decode('utf-8')
