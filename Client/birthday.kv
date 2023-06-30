@@ -278,7 +278,6 @@ WindowManager:
                     id:Year
                     size_hint:.8,.6
                     font_size:12
-                    text:'2022'
                     on_focus:
                         root.dateValidate(Day.text,Month.text,Year.text,Next,dateLabel)
                         root.InputCheck(Next)
@@ -289,7 +288,6 @@ WindowManager:
                     multiline:False
                     size_hint:.8,.6
                     font_size:12
-                    text:'12'
                     on_focus:
                         root.dateValidate(Day.text,Month.text,Year.text,Next,dateLabel)
                         root.InputCheck(Next)
@@ -300,7 +298,6 @@ WindowManager:
                     multiline:False
                     size_hint:.8,.6
                     font_size:12
-                    text:'1'
                     on_focus:
                         root.dateValidate(Day.text,Month.text,Year.text,Next,dateLabel)
                         root.InputCheck(Next)
@@ -313,8 +310,8 @@ WindowManager:
                 id:From
                 multiline:False
                 pos_hint:{"x":.25}
+                hint_text:"Your Name"
                 size_hint:.5,.1
-                text:'Abdul Haseeb'
             Label:
                 text:'To?'
                 pos_hint:{"x":.25}
@@ -323,8 +320,8 @@ WindowManager:
                 id:To
                 multiline:False
                 pos_hint:{"x":.25}
+                hint_text:"Your friend's name"
                 size_hint:.5,.1
-                text:'No One'
             Label:
                 text:"Enter your friend's Email"
                 id:emailLabel
@@ -336,7 +333,6 @@ WindowManager:
                 multiline:False
                 pos_hint:{"x":.25}
                 size_hint:.5,.1
-                text:'a.hmohdlords@gmail.com'
                 on_focus:
                     root.emailValidate(ToEmail.text,emailLabel,Next)
                     root.InputCheck(Next)
