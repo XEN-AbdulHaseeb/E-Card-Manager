@@ -320,12 +320,14 @@ def TokenGen():  # For Client
 
 Appendage = 0  # Refer to line 376 to understand why this exists
 
-
+globalToEmail = ''
 def customBirthdayCard(root_manager):
     print('In card gen')
     global Appendage
     global customText
+    global globalToEmail      
     ToEmail = root_manager.get_screen('DIS').ids.ToEmail.text
+    globalToEmail = ToEmail
     Appendage += 1
     if os.path.isfile(
             f'.\HappyBirthdayto{Appendage - 1}{ToEmail}.jpg'):
@@ -380,3 +382,4 @@ class bruhBirthdayApp(App):
 
 if __name__ == '__main__':
     bruhBirthdayApp().run()
+    os.remove(f'HappyBirthdayto{Appendage}{globalToEmail}.jpg')
